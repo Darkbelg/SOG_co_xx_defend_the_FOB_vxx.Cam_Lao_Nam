@@ -51,9 +51,8 @@ if (isServer) then {
 			_waypoint setWaypointBehaviour "AWARE";
 			_waypoint setWaypointFormation "LINE";
 			_waypoint setWaypointSpeed (selectRandom _movementSpeeds);
-			_waypoint setWaypointType "SAD";
-			//_waypoint setWaypointTimeout [0, 5, 10];
-			
+			_waypoint setWaypointType "MOVE";
+			//_waypoint setWaypointTimeout [0, 5, 10];			
 		} forEach _attackPoints;
 	};
 
@@ -64,7 +63,7 @@ if (isServer) then {
 			// _x disableAI "AIMINGERROR";
 			_x disableAI "AUTOCOMBAT";
 			_x enableAttack false;
-			//_x enableStamina false;
+			_x enableStamina false;
 		} forEach units _unit;
 	};
 
@@ -91,7 +90,8 @@ if (isServer) then {
 		];
 
 		while {_totalUnits <= _maxAmmount} do {
-			waitUntil { sleep 10; diag_fpsMin >= 30; };
+			waitUntil { sleep 30; diag_fpsMin >= 30; };
+			systemChat format["SpawnPosition:%1",_spawnPostition];
 			_unit = [[(_spawnPostition select 0) + random (_spread select 0),(_spawnPostition select 1) + random (_spread select 1), _spawnPostition select 2],east,selectRandomWeighted _possibleFireteams] call BIS_fnc_spawnGroup;
 			waitUntil{!(isNil "_unit")};
 			_unit deleteGroupWhenEmpty true;
@@ -115,7 +115,37 @@ if (isServer) then {
 		} forEach allGroups;
 	};
 
+	// Spawning enemies using the BIS_fnc_findSafePos
+	// We will get the first position and then the second. We will check if the distance is larger then a km. Otherwise we will try and find another position.
+	// This is to prevent all enemies to come from one direction.
+	// When the function finds two positions it will move the two excisting markers. So that it will not break current code in the mission.
+	// Marker names will be w1_1 and w1_2
+	selectEnemySpawnPoints = {
+		systemChat "Starting selecting points";
+		private _respawnMarker = getMarkerPos "respawn_west";
+		private _spawndirection1 = [_respawnMarker, 700, 850, 1, 0, 0.25, 0] call BIS_fnc_findSafePos;
+		private _spawnDirection2 = _spawndirection1;
+
+		systemChat format ["Spawn Point 1:%1",_spawndirection1];
+		systemChat format ["Spawn Point 2:%1",_spawndirection2];
+		systemChat format ["Spawn Points",_spawndirection1 distance _spawnDirection2 <= 1500];
+
+		while {_spawndirection1 distance _spawnDirection2 <= 1000  } do {
+			systemChat "Changing spawn direction 2";
+			systemChat format ["Spawn Point 2:%1",_spawndirection2];
+			_spawnDirection2 = [_respawnMarker, 600, 750, 1, 0, 0.25, 0] call BIS_fnc_findSafePos;		
+		};
+
+		systemChat format ["Spawn Point 1:%1",_spawndirection1];
+		systemChat format ["Spawn Point 2:%1",_spawndirection2];
+
+		"w1_1" setMarkerPos _spawndirection1;
+		"w1_2" setMarkerPos _spawndirection2;
+	};
+
 	startGame = {
+		[] spawn selectEnemySpawnPoints;
+
 		waitUntil { sleep 15;f_param_safe_start <= 0; };
 		systemChat "Safety off";
 		[highCommand,"Alright they will try and soften us up with an artillery barrage."] remoteExecCall ["sideChat"]; 
@@ -125,33 +155,37 @@ if (isServer) then {
 		sleep 5;
 		_art_wave_1 = ["a1_2","vn_shell_60mm_m49a2_he_ammo",100,[20,3],3] spawn BIS_fnc_fireSupportCluster;
 		waitUntil { scriptDone _art_wave_1};
+		/* Wave 1 */
 		[highCommand,"Get ready here they come!"] remoteExecCall ["sideChat"]; 
-		[f_param_difficulty,["w1_1"],["a1_2"],[100,0]] spawn spawnWaves;
+		[f_param_difficulty,["w1_1"],["a1_1","a1_2"],[100,100]] spawn spawnWaves;
 		waitUntil { sleep 60; allEnemiesAttacking && enemyWaveDestroyed; };
 		["a1_2"] call createMoveToHold;
 		enemyWaveDestroyed = false;
 		allEnemiesAttacking = false;
 		[highCommand,"The enemy is reorganizing."] remoteExecCall ["sideChat"]; 
 		sleep 300;
+		/* Wave 2 */
 		[highCommand,"Get ready! They are coming from a different direction now."] remoteExecCall ["sideChat"]; 
-		[f_param_difficulty,["w1_2"],["a1_2"],[200,0]] spawn spawnWaves;
+		[f_param_difficulty,["w1_2"],["a1_1","a1_2"],[100,100]] spawn spawnWaves;
 		waitUntil { sleep 60;allEnemiesAttacking && enemyWaveDestroyed;};
 		["a1_2"] call createMoveToHold;
 		enemyWaveDestroyed = false;
 		allEnemiesAttacking = false;
 		[highCommand,"The enemy is reorganizing."] remoteExecCall ["sideChat"]; 
 		sleep 300;
+		/* Wave 3 */
 		[highCommand,"Get ready! They are coming from both sides now."] remoteExecCall ["sideChat"]; 
-		[f_param_difficulty,["w1_2"],["a1_2"],[200,0]] spawn spawnWaves;
+		[f_param_difficulty,["w1_2"],["a1_1","a1_2"],[100,100]] spawn spawnWaves;
 		waitUntil { sleep 60; allEnemiesAttacking;};
 		allEnemiesAttacking = false;
-		[f_param_difficulty,["w1_1"],["a1_2"],[100,0]] spawn spawnWaves;
+		[f_param_difficulty,["w1_1"],["a1_1","a1_2"],[100,100]] spawn spawnWaves;
 		waitUntil { sleep 60; allEnemiesAttacking;};
 		enemyWaveDestroyed = false;
 		waitUntil { sleep 60;allEnemiesAttacking && enemyWaveDestroyed;};
 		["a1_2"] call createMoveToHold;
 		[highCommand,"Great job you have repelled the enemy attack."] remoteExecCall ["sideChat"]; 
 		sleep 60;
+
 		"End1" call BIS_fnc_endMissionServer;
 	};
 

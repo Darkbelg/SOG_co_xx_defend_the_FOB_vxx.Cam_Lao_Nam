@@ -20,12 +20,13 @@ if (side group player != CIVILIAN) then {
 	<br/>%1 <!--- Casualties Cap --->
 	<br/>
 	<br/><font size='18' color='#80FF00'>FRIENDLY FORCES</font>
-	<br/>Weather condition are not on our side. It's overcast so we have no air cover. Enemy is going to close ranks fast so no artillery support.
-	<br/>We are on our own.
+	<br/>Weather condition are not on our side. It's overcast so we have no air cover.
+	<br/>We have a RTO so artillery support is available.There will be a 120 second cooldown between each call.
+	<br/>There wil be no reinforcments we are on our own.
 	<br/>
 	<br/>Ammo crates are scatterd around the FOB.
 	<br/>Each corner bunker has one.
-	<br/>Each bunker has a MG. Learn to use them.
+	<br/>Each bunker has a MG.
 	<br/>
 	<br/>Base pictures:
 	<br/><img image='mission\img\base5.jpg' width='400' height='225'/>
