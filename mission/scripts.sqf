@@ -89,7 +89,7 @@ if (isServer) then {
 			["vn_o_men_vc_14", "vn_o_men_vc_07", "vn_o_men_vc_01", "vn_o_men_vc_04", "vn_o_men_vc_05", "vn_o_men_vc_03", "vn_o_men_vc_02", "vn_o_men_vc_06", "vn_o_men_vc_13", "vn_o_men_vc_12"],0.25
 		];
 
-		while {_totalUnits <= _maxAmmount} do {
+		while {_totalUnits < _maxAmmount} do {
 			waitUntil { sleep 30; diag_fpsMin >= 30; };
 			systemChat format["SpawnPosition:%1",_spawnPostition];
 			_unit = [[(_spawnPostition select 0) + random (_spread select 0),(_spawnPostition select 1) + random (_spread select 1), _spawnPostition select 2],east,selectRandomWeighted _possibleFireteams] call BIS_fnc_spawnGroup;
@@ -204,7 +204,7 @@ if (isServer) then {
 	};
 
 	countEnemies = {
-		if (east countSide allUnits < 10 && allEnemiesAttacking) then {
+		if (east countSide allUnits < 6 && allEnemiesAttacking) then {
 			enemyWaveDestroyed = true;
 		};
 	};
