@@ -52,7 +52,7 @@ _defMags = 9;
 _defMags_tr = 8;
 
 // Standard Riflemen ( MMG Assistant Gunner, Assistant Automatic Rifleman, MAT Assistant Gunner, MTR Assistant Gunner, Rifleman)
-_rifle = "vn_m16";
+_rifle = ["vn_m16","vn_m1928a1_tommy"];
 _riflemag = "vn_m16_20_mag";
 _riflemag_tr = "vn_m16_20_t_mag";
 

@@ -12,7 +12,7 @@ class EditorData
 	};
 	class ItemIDProvider
 	{
-		nextID=6197;
+		nextID=6304;
 	};
 	class MarkerIDProvider
 	{
@@ -24,10 +24,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={14826.535,327.55505,9541.3643};
-		dir[]={-0.33207241,-0.78610104,0.52139127};
-		up[]={-0.42229447,0.61808306,0.6630522};
-		aside[]={0.84348738,-8.1770122e-007,0.53721529};
+		pos[]={14736.598,268.90781,9541.2451};
+		dir[]={0.87411058,-0.46887538,0.12683311};
+		up[]={0.46401614,0.8832643,0.067328565};
+		aside[]={0.14359587,0,-0.98963642};
 	};
 };
 binarizationWanted=0;
@@ -450,32 +450,36 @@ class Mission
 {
 	class Intel
 	{
-		overviewText="Defend against waves of VC. No enemy vehicles. Night with flares. No support. Max one hour. Slot up squads: Squad lead -> Medic -> Grenadier(FTL) -> Everybody Else.";
+		overviewText="Defend against waves of VC. Night with flares. Max one hour. Do you smell the charcoal yet?";
 		resistanceWest=0;
-		startWeather=0.27408198;
-		startWind=0.27499199;
-		startWindDir=87.784599;
-		startLightnings=0.099999994;
+		startWeather=1;
+		startFog=0.75;
+		startWind=0;
+		startWindDir=87.785004;
 		startWaves=0.099999994;
-		startGust=0.19185801;
-		forecastWeather=0.27408198;
-		forecastWind=0.27499199;
+		forecastWeather=1;
+		forecastFog=1;
+		forecastWind=0.69999999;
 		forecastWaves=0.099999994;
+		forecastRain=1;
+		forecastLightnings=1;
+		forecastGust=0.5;
 		rainForced=1;
 		lightningsForced=1;
 		wavesForced=1;
 		windForced=1;
-		year=2035;
+		year=1969;
 		month=6;
-		day=24;
+		day=21;
 		hour=12;
 		minute=50;
-		startFogDecay=0.0049333;
-		forecastFogDecay=0.0049333;
+		forecastFogBase=500;
+		startFogDecay=0;
+		forecastFogDecay=0;
 	};
 	class Entities
 	{
-		items=32;
+		items=28;
 		class Item0
 		{
 			dataType="Marker";
@@ -980,51 +984,6 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14816.88,244.08493,9654.2861};
-						angles[]={6.2531958,0.92502451,0.029989703};
-					};
-					side="West";
-					flags=4;
-					class Attributes
-					{
-						skill=0.2;
-						init="["""",this] call f_fnc_assignGear;";
-						name="UnitNATO_A1_2";
-						description="Rifleman (AT)";
-						isPlayable=1;
-						reportRemoteTargets=1;
-					};
-					id=2680;
-					type="B_soldier_LAT_F";
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="pitch";
-							expression="_this setpitch _value;";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"SCALAR"
-										};
-									};
-									value=0.95999998;
-								};
-							};
-						};
-						nAttributes=1;
-					};
-				};
-				class Item5
-				{
-					dataType="Object";
-					class PositionInfo
-					{
 						position[]={14822.481,244.12698,9653.499};
 						angles[]={0,0.92502451,6.2531958};
 					};
@@ -1084,7 +1043,7 @@ class Mission
 						nAttributes=2;
 					};
 				};
-				class Item6
+				class Item5
 				{
 					dataType="Object";
 					class PositionInfo
@@ -1106,7 +1065,51 @@ class Mission
 					id=2683;
 					type="B_soldier_AR_F";
 				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={14815.282,244.05144,9653.083};
+						angles[]={0,0.92502451,0};
+					};
+					side="West";
+					flags=4;
+					class Attributes
+					{
+						skill=0.2;
+						init="["""",this] call f_fnc_assignGear;";
+						name="UnitNATO_A1_3";
+						description="Rifleman";
+						isPlayable=1;
+						reportRemoteTargets=1;
+					};
+					id=6292;
+					type="B_Soldier_F";
+				};
 				class Item7
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={14817.689,244.05144,9649.8877};
+						angles[]={0,0.92502451,0};
+					};
+					side="West";
+					flags=4;
+					class Attributes
+					{
+						skill=0.2;
+						init="["""",this] call f_fnc_assignGear;";
+						name="UnitNATO_A2_3";
+						description="Rifleman";
+						isPlayable=1;
+						reportRemoteTargets=1;
+					};
+					id=6293;
+					type="B_Soldier_F";
+				};
+				class Item8
 				{
 					dataType="Object";
 					class PositionInfo
@@ -1121,12 +1124,12 @@ class Mission
 						skill=0.2;
 						init="["""",this] call f_fnc_assignGear;";
 						name="UnitNATO_A2_2";
-						description="Rifleman (AT)";
+						description="Rifleman";
 						isPlayable=1;
 						reportRemoteTargets=1;
 					};
-					id=2685;
-					type="B_soldier_LAT_F";
+					id=6294;
+					type="B_Soldier_F";
 					class CustomAttributes
 					{
 						class Attribute0
@@ -1170,35 +1173,13 @@ class Mission
 						nAttributes=2;
 					};
 				};
-				class Item8
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={14815.282,244.05144,9653.083};
-						angles[]={0,0.92502451,0};
-					};
-					side="West";
-					flags=4;
-					class Attributes
-					{
-						skill=0.2;
-						init="["""",this] call f_fnc_assignGear;";
-						name="UnitNATO_A1_3";
-						description="Asst. Autorifleman";
-						isPlayable=1;
-						reportRemoteTargets=1;
-					};
-					id=3311;
-					type="B_soldier_AAR_F";
-				};
 				class Item9
 				{
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14817.689,244.05144,9649.8877};
-						angles[]={0,0.92502451,0};
+						position[]={14816.88,244.08493,9654.2861};
+						angles[]={6.2531958,0.92502451,0.029989703};
 					};
 					side="West";
 					flags=4;
@@ -1206,13 +1187,36 @@ class Mission
 					{
 						skill=0.2;
 						init="["""",this] call f_fnc_assignGear;";
-						name="UnitNATO_A2_3";
-						description="Asst. Autorifleman";
+						name="UnitNATO_A1_2";
+						description="Rifleman";
 						isPlayable=1;
 						reportRemoteTargets=1;
 					};
-					id=3312;
-					type="B_soldier_AAR_F";
+					id=6295;
+					type="B_Soldier_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.95999998;
+								};
+							};
+						};
+						nAttributes=1;
+					};
 				};
 			};
 			class Attributes
@@ -1431,28 +1435,6 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14705.625,244.16144,9642.4248};
-					};
-					side="West";
-					flags=4;
-					class Attributes
-					{
-						skill=0.2;
-						init="["""",this] call f_fnc_assignGear;";
-						name="UnitNATO_B1_2";
-						description="Rifleman (AT)";
-						isPlayable=1;
-						reportRemoteTargets=1;
-					};
-					id=2690;
-					type="B_soldier_LAT_F";
-					atlOffset=0.020004272;
-				};
-				class Item5
-				{
-					dataType="Object";
-					class PositionInfo
-					{
 						position[]={14709.625,244.24269,9646.4248};
 						angles[]={0.013995145,0,0.0039967569};
 					};
@@ -1471,7 +1453,7 @@ class Mission
 					type="B_Soldier_TL_F";
 					atlOffset=0.032012939;
 				};
-				class Item6
+				class Item5
 				{
 					dataType="Object";
 					class PositionInfo
@@ -1494,7 +1476,51 @@ class Mission
 					type="B_soldier_AR_F";
 					atlOffset=0.046005249;
 				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={14705.625,244.16943,9640.4248};
+					};
+					side="West";
+					flags=4;
+					class Attributes
+					{
+						skill=0.2;
+						init="["""",this] call f_fnc_assignGear;";
+						name="UnitNATO_B1_3";
+						description="Rifleman";
+						isPlayable=1;
+						reportRemoteTargets=1;
+					};
+					id=6296;
+					type="B_Soldier_F";
+					atlOffset=0.027999878;
+				};
 				class Item7
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={14705.625,244.16144,9642.4248};
+					};
+					side="West";
+					flags=4;
+					class Attributes
+					{
+						skill=0.2;
+						init="["""",this] call f_fnc_assignGear;";
+						name="UnitNATO_B1_2";
+						description="Rifleman";
+						isPlayable=1;
+						reportRemoteTargets=1;
+					};
+					id=6297;
+					type="B_Soldier_F";
+					atlOffset=0.020004272;
+				};
+				class Item8
 				{
 					dataType="Object";
 					class PositionInfo
@@ -1509,35 +1535,13 @@ class Mission
 						skill=0.2;
 						init="["""",this] call f_fnc_assignGear;";
 						name="UnitNATO_B2_2";
-						description="Rifleman (AT)";
+						description="Rifleman";
 						isPlayable=1;
 						reportRemoteTargets=1;
 					};
-					id=2695;
-					type="B_soldier_LAT_F";
+					id=6298;
+					type="B_Soldier_F";
 					atlOffset=0.056015015;
-				};
-				class Item8
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={14705.625,244.16943,9640.4248};
-					};
-					side="West";
-					flags=4;
-					class Attributes
-					{
-						skill=0.2;
-						init="["""",this] call f_fnc_assignGear;";
-						name="UnitNATO_B1_3";
-						description="Asst. Autorifleman";
-						isPlayable=1;
-						reportRemoteTargets=1;
-					};
-					id=3309;
-					type="B_soldier_AAR_F";
-					atlOffset=0.027999878;
 				};
 				class Item9
 				{
@@ -1554,12 +1558,12 @@ class Mission
 						skill=0.2;
 						init="["""",this] call f_fnc_assignGear;";
 						name="UnitNATO_B2_3";
-						description="Asst. Autorifleman";
+						description="Rifleman";
 						isPlayable=1;
 						reportRemoteTargets=1;
 					};
-					id=3310;
-					type="B_soldier_AAR_F";
+					id=6299;
+					type="B_Soldier_F";
 					atlOffset=0.063995361;
 				};
 			};
@@ -1736,28 +1740,6 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14778.75,244.10318,9554.1748};
-						angles[]={6.2651882,3.2288594,0.017997233};
-					};
-					side="West";
-					flags=4;
-					class Attributes
-					{
-						skill=0.2;
-						init="["""",this] call f_fnc_assignGear;";
-						name="UnitNATO_C1_2";
-						description="Rifleman (AT)";
-						isPlayable=1;
-						reportRemoteTargets=1;
-					};
-					id=2700;
-					type="B_soldier_LAT_F";
-				};
-				class Item5
-				{
-					dataType="Object";
-					class PositionInfo
-					{
 						position[]={14774.417,244.07542,9550.5391};
 						angles[]={0,3.2288594,0};
 					};
@@ -1799,7 +1781,7 @@ class Mission
 						nAttributes=1;
 					};
 				};
-				class Item6
+				class Item5
 				{
 					dataType="Object";
 					class PositionInfo
@@ -1822,6 +1804,28 @@ class Mission
 					type="B_soldier_AR_F";
 					atlOffset=0.026000977;
 				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={14778.75,244.10318,9554.1748};
+						angles[]={6.2651882,3.2288594,0.017997233};
+					};
+					side="West";
+					flags=4;
+					class Attributes
+					{
+						skill=0.2;
+						init="["""",this] call f_fnc_assignGear;";
+						name="UnitNATO_C1_2";
+						description="Rifleman";
+						isPlayable=1;
+						reportRemoteTargets=1;
+					};
+					id=6300;
+					type="B_Soldier_F";
+				};
 				class Item7
 				{
 					dataType="Object";
@@ -1837,12 +1841,12 @@ class Mission
 						skill=0.2;
 						init="["""",this] call f_fnc_assignGear;";
 						name="UnitNATO_C2_2";
-						description="Rifleman (AT)";
+						description="Rifleman";
 						isPlayable=1;
 						reportRemoteTargets=1;
 					};
-					id=2705;
-					type="B_soldier_LAT_F";
+					id=6301;
+					type="B_Soldier_F";
 					atlOffset=0.029998779;
 				};
 				class Item8
@@ -1860,12 +1864,12 @@ class Mission
 						skill=0.2;
 						init="["""",this] call f_fnc_assignGear;";
 						name="UnitNATO_C1_3";
-						description="Asst. Autorifleman";
+						description="Rifleman";
 						isPlayable=1;
 						reportRemoteTargets=1;
 					};
-					id=3307;
-					type="B_soldier_AAR_F";
+					id=6302;
+					type="B_Soldier_F";
 				};
 				class Item9
 				{
@@ -1882,12 +1886,12 @@ class Mission
 						skill=0.2;
 						init="["""",this] call f_fnc_assignGear;";
 						name="UnitNATO_C2_3";
-						description="Asst. Autorifleman";
+						description="Rifleman";
 						isPlayable=1;
 						reportRemoteTargets=1;
 					};
-					id=3308;
-					type="B_soldier_AAR_F";
+					id=6303;
+					type="B_Soldier_F";
 					atlOffset=0.026000977;
 				};
 			};
@@ -2399,38 +2403,6 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14799.25,248.04787,9669.25};
-				angles[]={0,6.1086531,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-			};
-			id=6170;
-			type="vn_b_sf_static_m60_low";
-		};
-		class Item23
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={14739.375,248.06847,9658.875};
-				angles[]={0,6.1261058,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-			};
-			id=6172;
-			type="vn_b_sf_static_m60_low";
-		};
-		class Item24
-		{
-			dataType="Object";
-			class PositionInfo
-			{
 				position[]={14716.875,248.09528,9612.125};
 				angles[]={0,4.2062435,0};
 			};
@@ -2442,23 +2414,23 @@ class Mission
 			id=6173;
 			type="vn_b_sf_static_m60_low";
 		};
-		class Item25
+		class Item23
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14732.875,248.02264,9588.25};
+				position[]={14732.819,248.02191,9588.4297};
 				angles[]={0,4.1887908,0};
 			};
 			side="Empty";
-			flags=4;
 			class Attributes
 			{
 			};
 			id=6174;
 			type="vn_b_sf_static_m60_low";
+			atlOffset=2.5328064;
 		};
-		class Item26
+		class Item24
 		{
 			dataType="Object";
 			class PositionInfo
@@ -2474,79 +2446,7 @@ class Mission
 			id=6175;
 			type="vn_b_sf_static_m60_low";
 		};
-		class Item27
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={14793,248.11679,9565.375};
-				angles[]={0,1.9547688,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-			};
-			id=6176;
-			type="vn_b_sf_static_m60_low";
-		};
-		class Item28
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={14820.125,248.09367,9639};
-				angles[]={0,1.9547688,0};
-			};
-			side="Empty";
-			class Attributes
-			{
-			};
-			id=6177;
-			type="vn_b_sf_static_m60_low";
-			atlOffset=2.5332794;
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="ENH_enableHeadlights";
-					expression="_this setPilotLight _value";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=1;
-						};
-					};
-				};
-				nAttributes=1;
-			};
-		};
-		class Item29
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={14767.624,248.07367,9662.251};
-				angles[]={0.00077204045,6.143559,0.00084572798};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-			};
-			id=6178;
-			type="vn_b_sf_static_m60_low";
-			atlOffset=0.035720825;
-		};
-		class Item30
+		class Item25
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -2556,13 +2456,23 @@ class Mission
 			id=6192;
 			type="vn_module_artillery";
 		};
-		class Item31
+		class Item26
 		{
 			dataType="Marker";
 			position[]={14841.337,244.14,9588.0879};
 			name="a1_1";
 			type="Empty";
 			id=6193;
+		};
+		class Item27
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={14764.125,244.05,9617.125};
+			};
+			id=6197;
+			type="vn_module_logistics";
 		};
 	};
 };

@@ -26,7 +26,7 @@ if (side group player != CIVILIAN) then {
 	<br/>
 	<br/>Ammo crates are scatterd around the FOB.
 	<br/>Each corner bunker has one.
-	<br/>Each bunker has a MG.
+	<br/>We have 3 MG60s that can be moved around. They are now on the bunkers on the SW side.
 	<br/>
 	<br/>Base pictures:
 	<br/><img image='mission\img\base5.jpg' width='400' height='225'/>
@@ -35,6 +35,8 @@ if (side group player != CIVILIAN) then {
 	<br/>Enemy consist of VC forces. There will be three waves.
 	<br/>First two will be from a different direction.
 	<br/>Last one will be from both directions.
+	<br/>
+	<br/>There will be a pause between each wave.
 	<br/>
 	<br/>You need to hold out for max of one hour.
 	<br/>

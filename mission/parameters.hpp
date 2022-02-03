@@ -29,23 +29,23 @@ class f_ParamSpacer_title1
 class f_param_difficulty
 {
 	title = "Select difficulty(Squads that will spawn). Try to multiply times 3 and then divide by 10.";
-	values[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-	texts[] = {"1","2","3 (10+ players)","4","5","6(20+ players)","7","8","9(30+ players)","10","11","12","13","14","15"};
-	default = 10;
+	values[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+	texts[] = {"1","2","3 (10+ players)","4","5","6(20+ players)","7","8","9(30+ players)","10","11","12","13","14","15","Automatic"};
+	default = 16;
 };
 class f_param_weather
 {
 	title = "Weather";
 	values[] = {0,1,2,3,4,5,6,7};
 	texts[] = {"Mission Default","Calm","Light Cloud","Overcast","Light Rain","Rain","Storm","Random"};
-	default = 3;
+	default = 0;
 };
 class f_param_fog
 {
 	title = "Fog";
 	values[] = {0,1,2,3,4};
 	texts[] = {"Mission Default","None","Light","Heavy","Random"};
-	default = 1;
+	default = 0;
 };
 class f_param_timeOfDay
 {

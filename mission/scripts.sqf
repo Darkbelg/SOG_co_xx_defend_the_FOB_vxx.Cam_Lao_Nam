@@ -50,7 +50,7 @@ if (isServer) then {
 			_waypoint setWaypointCombatMode "RED";
 			_waypoint setWaypointBehaviour "AWARE";
 			_waypoint setWaypointFormation "LINE";
-			_waypoint setWaypointSpeed (selectRandom _movementSpeeds);
+			_waypoint setWaypointSpeed "FULL";
 			_waypoint setWaypointType "MOVE";
 			//_waypoint setWaypointTimeout [0, 5, 10];			
 		} forEach _attackPoints;
@@ -64,6 +64,7 @@ if (isServer) then {
 			_x disableAI "AUTOCOMBAT";
 			_x enableAttack false;
 			_x enableStamina false;
+			_x disableAI "FSM";
 		} forEach units _unit;
 	};
 
@@ -80,17 +81,26 @@ if (isServer) then {
 	spawnWaveUnits = {
 		params ["_spawnPostition","_waveAttackPoints","_maxAmmount","_spread"];		
 		_totalUnits = 0;
+		// _possibleFireteams = [
+		// 	["vn_o_men_vc_local_07", "vn_o_men_vc_local_11", "vn_o_men_vc_local_10", "vn_o_men_vc_local_08", "vn_o_men_vc_local_29", "vn_o_men_vc_local_01", "vn_o_men_vc_local_02", "vn_o_men_vc_local_06", "vn_o_men_vc_local_04", "vn_o_men_vc_local_03", "vn_o_men_vc_local_05", "vn_o_men_vc_local_13", "vn_o_men_vc_local_09", "vn_o_men_vc_local_30", "vn_o_men_vc_local_12"],0.75,
+		// 	["vn_o_men_vc_local_28", "vn_o_men_vc_local_21", "vn_o_men_vc_local_25", "vn_o_men_vc_local_32", "vn_o_men_vc_local_24", "vn_o_men_vc_local_31", "vn_o_men_vc_local_22", "vn_o_men_vc_local_15", "vn_o_men_vc_local_16", "vn_o_men_vc_local_20", "vn_o_men_vc_local_18", "vn_o_men_vc_local_17", "vn_o_men_vc_local_19", "vn_o_men_vc_local_27", "vn_o_men_vc_local_23", "vn_o_men_vc_local_26"],0.75,
+		// 	["vn_o_men_vc_regional_07", "vn_o_men_vc_regional_11", "vn_o_men_vc_regional_10", "vn_o_men_vc_regional_08", "vn_o_men_vc_regional_01", "vn_o_men_vc_regional_04", "vn_o_men_vc_regional_03", "vn_o_men_vc_regional_02", "vn_o_men_vc_regional_06", "vn_o_men_vc_regional_05", "vn_o_men_vc_regional_09", "vn_o_men_vc_regional_12"],0.5,
+		// 	["vn_o_men_vc_regional_07", "vn_o_men_vc_regional_11", "vn_o_men_vc_regional_10", "vn_o_men_vc_regional_08", "vn_o_men_vc_regional_01", "vn_o_men_vc_regional_04", "vn_o_men_vc_regional_03", "vn_o_men_vc_regional_02", "vn_o_men_vc_regional_06", "vn_o_men_vc_regional_05", "vn_o_men_vc_regional_09", "vn_o_men_vc_regional_12"],0.5,
+		// 	["vn_o_men_vc_07", "vn_o_men_vc_10", "vn_o_men_vc_08", "vn_o_men_vc_01", "vn_o_men_vc_04", "vn_o_men_vc_05", "vn_o_men_vc_03", "vn_o_men_vc_02", "vn_o_men_vc_06", "vn_o_men_vc_09"],0.25,
+		// 	["vn_o_men_vc_14", "vn_o_men_vc_07", "vn_o_men_vc_01", "vn_o_men_vc_04", "vn_o_men_vc_05", "vn_o_men_vc_03", "vn_o_men_vc_02", "vn_o_men_vc_06", "vn_o_men_vc_13", "vn_o_men_vc_12"],0.25
+		// ];
+
 		_possibleFireteams = [
-			["vn_o_men_vc_local_07", "vn_o_men_vc_local_11", "vn_o_men_vc_local_10", "vn_o_men_vc_local_08", "vn_o_men_vc_local_29", "vn_o_men_vc_local_01", "vn_o_men_vc_local_02", "vn_o_men_vc_local_06", "vn_o_men_vc_local_04", "vn_o_men_vc_local_03", "vn_o_men_vc_local_05", "vn_o_men_vc_local_13", "vn_o_men_vc_local_09", "vn_o_men_vc_local_30", "vn_o_men_vc_local_12"],0.75,
-			["vn_o_men_vc_local_28", "vn_o_men_vc_local_21", "vn_o_men_vc_local_25", "vn_o_men_vc_local_32", "vn_o_men_vc_local_24", "vn_o_men_vc_local_31", "vn_o_men_vc_local_22", "vn_o_men_vc_local_15", "vn_o_men_vc_local_16", "vn_o_men_vc_local_20", "vn_o_men_vc_local_18", "vn_o_men_vc_local_17", "vn_o_men_vc_local_19", "vn_o_men_vc_local_27", "vn_o_men_vc_local_23", "vn_o_men_vc_local_26"],0.75,
-			["vn_o_men_vc_regional_07", "vn_o_men_vc_regional_11", "vn_o_men_vc_regional_10", "vn_o_men_vc_regional_08", "vn_o_men_vc_regional_01", "vn_o_men_vc_regional_04", "vn_o_men_vc_regional_03", "vn_o_men_vc_regional_02", "vn_o_men_vc_regional_06", "vn_o_men_vc_regional_05", "vn_o_men_vc_regional_09", "vn_o_men_vc_regional_12"],0.5,
-			["vn_o_men_vc_regional_07", "vn_o_men_vc_regional_11", "vn_o_men_vc_regional_10", "vn_o_men_vc_regional_08", "vn_o_men_vc_regional_01", "vn_o_men_vc_regional_04", "vn_o_men_vc_regional_03", "vn_o_men_vc_regional_02", "vn_o_men_vc_regional_06", "vn_o_men_vc_regional_05", "vn_o_men_vc_regional_09", "vn_o_men_vc_regional_12"],0.5,
-			["vn_o_men_vc_07", "vn_o_men_vc_10", "vn_o_men_vc_08", "vn_o_men_vc_01", "vn_o_men_vc_04", "vn_o_men_vc_05", "vn_o_men_vc_03", "vn_o_men_vc_02", "vn_o_men_vc_06", "vn_o_men_vc_09"],0.25,
-			["vn_o_men_vc_14", "vn_o_men_vc_07", "vn_o_men_vc_01", "vn_o_men_vc_04", "vn_o_men_vc_05", "vn_o_men_vc_03", "vn_o_men_vc_02", "vn_o_men_vc_06", "vn_o_men_vc_13", "vn_o_men_vc_12"],0.25
+			["vn_o_men_nva_dc_07","vn_o_men_nva_dc_07","vn_o_men_nva_dc_07","vn_o_men_nva_dc_07","vn_o_men_nva_dc_05", "vn_o_men_nva_dc_02", "vn_o_men_nva_dc_04"],0.25,
+			["vn_o_men_nva_dc_11","vn_o_men_nva_dc_11","vn_o_men_nva_dc_11","vn_o_men_nva_dc_11","vn_o_men_nva_dc_11","vn_o_men_nva_dc_11","vn_o_men_nva_dc_11","vn_o_men_nva_dc_11"],0.25,
+			["vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06","vn_o_men_vc_local_06"],0.75,
+			["vn_o_men_nva_dc_09", "vn_o_men_nva_dc_06", "vn_o_men_nva_dc_08","vn_o_men_nva_dc_09", "vn_o_men_nva_dc_06", "vn_o_men_nva_dc_08","vn_o_men_nva_dc_09", "vn_o_men_nva_dc_06", "vn_o_men_nva_dc_08","vn_o_men_nva_dc_09", "vn_o_men_nva_dc_06", "vn_o_men_nva_dc_08"],0.75,
+			["vn_o_men_nva_dc_05", "vn_o_men_nva_dc_02", "vn_o_men_nva_dc_04", "vn_o_men_nva_dc_01","vn_o_men_nva_dc_05", "vn_o_men_nva_dc_02", "vn_o_men_nva_dc_04", "vn_o_men_nva_dc_01","vn_o_men_nva_dc_05", "vn_o_men_nva_dc_02", "vn_o_men_nva_dc_04", "vn_o_men_nva_dc_01","vn_o_men_nva_dc_05", "vn_o_men_nva_dc_02", "vn_o_men_nva_dc_04", "vn_o_men_nva_dc_01"],0.5,
+			["vn_o_men_nva_15", "vn_o_men_nva_20", "vn_o_men_nva_27", "vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23","vn_o_men_nva_23"],0.75
 		];
 
 		while {_totalUnits < _maxAmmount} do {
-			waitUntil { sleep 30; diag_fpsMin >= 30; };
+			waitUntil { sleep 20; diag_fpsMin >= 25; };
 			systemChat format["SpawnPosition:%1",_spawnPostition];
 			_unit = [[(_spawnPostition select 0) + random (_spread select 0),(_spawnPostition select 1) + random (_spread select 1), _spawnPostition select 2],east,selectRandomWeighted _possibleFireteams] call BIS_fnc_spawnGroup;
 			waitUntil{!(isNil "_unit")};
@@ -145,6 +155,10 @@ if (isServer) then {
 
 	startGame = {
 		[] spawn selectEnemySpawnPoints;
+
+		if (f_param_difficulty == 16) then {
+			f_param_difficulty = floor ((count playableUnits + count switchableUnits) * 0.3) + 3;
+		};
 
 		waitUntil { sleep 15;f_param_safe_start <= 0; };
 		systemChat "Safety off";
@@ -220,7 +234,6 @@ if (isServer) then {
 	[] spawn checkReinforcments;
 };
 
-
 // comment "Exported from Arsenal by Darkbelg";
 
 // comment "[!] UNIT MUST BE LOCAL [!]";
@@ -237,43 +250,34 @@ if (isServer) then {
 // removeGoggles this;
 
 // comment "Add weapons";
-// this addWeapon "vn_m1897";
-// this addPrimaryWeaponItem "vn_m1897_buck_mag";
-// this addWeapon "vn_mx991_m1911";
-// this addHandgunItem "vn_s_m1911";
-// this addHandgunItem "vn_m1911_mag";
+// this addWeapon "vn_m1928_tommy";
+// this addPrimaryWeaponItem "vn_m1928_mag";
+// this addWeapon "hgun_Pistol_heavy_01_F";
+// this addHandgunItem "optic_MRD";
+// this addHandgunItem "11Rnd_45ACP_Mag";
 
 // comment "Add containers";
-// this forceAddUniform "vn_b_uniform_macv_02_01";
-// this addVest "vn_b_vest_usarmy_04";
-// this addBackpack "vn_b_pack_lw_03_m1897_pl";
-
-// comment "Add binoculars";
-// this addWeapon "vn_m19_binocs_grn";
+// this forceAddUniform "U_B_CombatUniform_mcam";
+// this addVest "V_BandollierB_rgr";
 
 // comment "Add items to containers";
-// this addItemToUniform "vn_b_item_firstaidkit";
-// for "_i" from 1 to 2 do {this addItemToUniform "vn_m61_grenade_mag";};
-// this addItemToUniform "vn_m34_grenade_mag";
-// for "_i" from 1 to 2 do {this addItemToUniform "vn_m1897_buck_mag";};
-// this addItemToVest "vn_m1897_buck_mag";
-// for "_i" from 1 to 3 do {this addItemToVest "vn_m1911_mag";};
-// for "_i" from 1 to 2 do {this addItemToBackpack "vn_b_item_firstaidkit";};
-// for "_i" from 1 to 6 do {this addItemToBackpack "vn_m1911_mag";};
-// for "_i" from 1 to 8 do {this addItemToBackpack "vn_m1897_buck_mag";};
-// for "_i" from 1 to 8 do {this addItemToBackpack "vn_m1897_fl_mag";};
-// for "_i" from 1 to 4 do {this addItemToBackpack "vn_m61_grenade_mag";};
-// for "_i" from 1 to 2 do {this addItemToBackpack "vn_m18_yellow_mag";};
-// this addItemToBackpack "vn_m34_grenade_mag";
-// for "_i" from 1 to 6 do {this addItemToBackpack "vn_mine_m14_mag";};
-// this addHeadgear "vn_b_bandana_01";
-// this addGoggles "vn_b_scarf_01_03";
+// this addItemToUniform "FirstAidKit";
+// this addItemToUniform "Chemlight_green";
+// this addItemToUniform "vn_m1928_mag";
+// for "_i" from 1 to 2 do {this addItemToVest "11Rnd_45ACP_Mag";};
+// this addItemToVest "SmokeShell";
+// this addItemToVest "SmokeShellGreen";
+// this addItemToVest "Chemlight_green";
+// for "_i" from 1 to 2 do {this addItemToVest "vn_m1928_mag";};
+// this addHeadgear "H_MilCap_mcamo";
+// this addGoggles "G_Aviator";
 
 // comment "Add items";
-// this linkItem "vn_b_item_map";
-// this linkItem "vn_b_item_compass";
-// this linkItem "vn_b_item_watch";
-// this linkItem "vn_b_item_radio_urc10";
+// this linkItem "ItemMap";
+// this linkItem "ItemCompass";
+// this linkItem "ItemWatch";
+// this linkItem "ItemRadio";
+// this linkItem "ItemGPS";
 
 // comment "Set identity";
-// [this,"WhiteHead_10","male08eng"] call BIS_fnc_setIdentity;
+// [this,"WhiteHead_04","male03eng"] call BIS_fnc_setIdentity;
